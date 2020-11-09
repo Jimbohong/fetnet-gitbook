@@ -4,8 +4,7 @@
 
 ![](../.gitbook/assets/jie-tu-20200303-xia-wu-2.46.40.png)
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```jsx
 import CheckboxButtons from '../../components/form/CheckboxButtons';
 import Formsy from 'formsy-react';
@@ -39,9 +38,8 @@ class Consultation extends React.Component {
   }
 }
 ```
-{% endtab %}
 
-{% tab title="CheckboxButtons.js" %}
+**CheckboxButtons.js**
 ```jsx
 import React from 'react'
 import { withFormsy } from 'formsy-react';
@@ -122,8 +120,6 @@ CheckboxButtons.propTypes = {
 
 export default withFormsy(CheckboxButtons)
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
@@ -213,8 +209,7 @@ export default withFormsy(CheckboxButtons)
 
 ![](../.gitbook/assets/jie-tu-20200303-xia-wu-2.46.25.png)
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```jsx
 import CheckGroup from '../../components/form/CheckGroup';
 import Formsy from 'formsy-react';
@@ -252,9 +247,8 @@ class Form extends React.Component {
   }
 }
 ```
-{% endtab %}
 
-{% tab title="CheckGroup.js" %}
+**CheckGroup.js**
 ```jsx
 import React from 'react';
 import { withFormsy } from 'formsy-react';
@@ -338,8 +332,6 @@ CheckGroup.propTypes = {
 export default withFormsy(CheckGroup);
 
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
@@ -429,8 +421,7 @@ export default withFormsy(CheckGroup);
 
 ![](../.gitbook/assets/jie-tu-20200303-xia-wu-2.52.08.png)
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```jsx
 import CheckboxCollapse from '../../components/form/CheckboxCollapse';
 import Formsy from 'formsy-react';
@@ -477,9 +468,8 @@ class Form extends React.Component {
   }
 }
 ```
-{% endtab %}
 
-{% tab title="CheckboxCollapse.js" %}
+**CheckboxCollapse.js**
 ```jsx
 import React from 'react'
 import { withFormsy } from 'formsy-react';
@@ -572,8 +562,6 @@ CheckboxCollapse.propTypes = {
 
 export default withFormsy(CheckboxCollapse)
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
@@ -587,3 +575,66 @@ export default withFormsy(CheckboxCollapse)
 | required | Boolean |  |  | 是否為必填 |
 | getCheckbox | Function |  |  | 回傳選取狀態 |
 
+
+## CheckboxAgree
+```jsx
+import React from 'react';
+import { withFormsy } from 'formsy-react';
+import PropTypes from 'prop-types';
+
+class Checkbox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { checked: this.props.checked };
+    this.changeValue = this.changeValue.bind(this);
+    this.currentValue = null;
+  }
+
+  passCheckedVal = (checked) => {
+    this.props.onChange(this.props.name, checked);
+  };
+  changeValue = (event) => {
+    this.props.setValue(event.target.checked);
+
+    this.passCheckedVal(event.target.checked);
+  };
+
+  render() {
+    const errorMessage = this.props.getErrorMessage();
+    return (
+      <label className={`checkbox ${this.props.className}`}>
+        <input
+          type='checkbox'
+          onChange={this.changeValue}
+          name={this.props.name}
+          value={this.props.getValue()}
+          defaultChecked={this.props.checked}
+        />
+        <div className='content'>{this.props.label || this.props.children}</div>
+        <div className='error-message'>{errorMessage}</div>
+      </label>
+    );
+  }
+}
+
+Checkbox.propTypes = {
+  className: PropTypes.string,
+  checked: PropTypes.bool,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
+export default withFormsy(Checkbox);
+```
+
+
+| 名稱 | 屬性 | 必填 | 選項 | 說明 |
+| :--- | :--- | :--- | :--- | :--- |
+| name | String | true |  | 輸入框名稱 |
+| label | String |  |  | 標題 |
+| className | String |  |  | 額外的樣式名稱 |
+| value | String |  |  | 值 |
+| checked | Boolean |  |  | 是否選取 |
+| onChange | Function |  |  | 回傳選取狀態 |

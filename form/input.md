@@ -4,8 +4,7 @@
 
 文字輸入框，不包含 &lt;label/&gt; 標籤
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```jsx
 import Formsy from 'formsy-react';
 import TextInput from '../components/form/TextInput';
@@ -35,9 +34,9 @@ class Login extends React.Component {
   }
 }
 ```
-{% endtab %}
+---
 
-{% tab title="TextInput.js" %}
+**TextInput.js**
 ```jsx
 import { withFormsy } from 'formsy-react';
 import React from 'react';
@@ -111,8 +110,6 @@ TextInput.propTypes = {
 export default withFormsy(TextInput);
 
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
@@ -130,8 +127,7 @@ export default withFormsy(TextInput);
 
 文字輸入框，包含 &lt;label/&gt; 標籤
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```jsx
 import Formsy from 'formsy-react';
 import LabelInput from '../components/form/LabelInput';
@@ -182,9 +178,8 @@ class Login extends React.Component {
     }
 }
 ```
-{% endtab %}
 
-{% tab title="LabelInput.js" %}
+**LabelInput.js**
 ```jsx
 import React from 'react';
 import { withFormsy } from 'formsy-react';
@@ -282,14 +277,12 @@ LabelInput.propTypes = {
 
 export default withFormsy(LabelInput);
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
 | 名稱 | 屬性 | 必填 | 選項 | 說明 |
 | :--- | :--- | :--- | :--- | :--- |
-| nam | String | true |  | 輸入框名稱 |
+| name | String | true |  | 輸入框名稱 |
 | placeholder | String |  |  | 輸入框提示訊息 |
 | validations | String or Object |  |  | 驗證條件 |
 | validationErrors | String or Object |  |  | 錯誤訊息 |
@@ -298,20 +291,140 @@ export default withFormsy(LabelInput);
 | value | String |  |  | 值 |
 | onChange | Function |  |  | 輸入框值改變事件 |
 
+### LabelPassword
+
+密碼輸入框，用法與 LabelInput 類似。
+
+```jsx
+import React from 'react';
+import { withFormsy } from 'formsy-react';
+import PropTypes from 'prop-types';
+
+class LabelPassword extends React.Component {
+  constructor(props) {
+    super(props);
+    this.input = React.createRef();
+    this.state = {
+      show: false,
+      submitted: false,
+      isInvalid: false,
+      required: this.props.required || false,
+      placeholder: this.props.placeholder || '',
+      maxLength: this.props.maxLength || 200,
+    };
+
+    this.resetInput = this.resetInput.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.input.current.value = this.props.getValue();
+  }
+
+  componentDidUpdate(prevProps) {
+    // console.group(prevProps.value,
+    if (prevProps.getValue() !== this.props.getValue()) {
+      this.input.current.value = this.props.getValue();
+    }
+    if (this.props.isFormSubmitted() !== this.state.submitted) {
+      // console.log(this.props.value)
+      this.setState({
+        submitted: this.props.isFormSubmitted(),
+        isInvalid: this.props.showRequired() || this.props.showError(),
+      });
+    }
+  }
+
+  resetInput() {
+    this.input.current.value = '';
+    this.props.setValue(null);
+  }
+
+  handleChange(event) {
+    this.props.setValue(this.input.current.value);
+    this.setState({
+      submitted: this.props.isFormSubmitted(),
+      isInvalid: this.props.showRequired() || this.props.showError(),
+    });
+    this.props.onChange(this.props.name, this.input.current.value);
+  }
+
+  render() {
+    const errorMessage = this.props.getErrorMessage();
+
+    return (
+      <div className={`form-group ${this.state.isInvalid ? 'is-invalid' : ''}`}>
+        {!!this.props.label ? (
+          <label htmlFor={`input-${this.props.name}`} className={this.state.required ? 'is-required' : ''}>
+            {this.props.label}
+          </label>
+        ) : (
+          ''
+        )}
+        <div className='text-input'>
+          <input
+            onBlur={this.handleChange}
+            id={`input-${this.props.name}`}
+            type={this.state.show ? 'text' : 'password'}
+            ref={this.input}
+            onChange={this.handleChange}
+            onKeyUp={this.handleChange}
+            placeholder={this.state.placeholder}
+            value={this.props.getValue() || ''}
+            maxLength={this.state.maxLength}
+          />
+          <div
+            className={`eye ${this.state.show ? 'pwd-show' : 'pwd-hide'}`}
+            onClick={(e) => this.setState({ show: !this.state.show })}>
+            <i className='icon-hide-view'></i>
+          </div>
+          {this.props.getValue() ? (
+            <div className='reset' onClick={this.resetInput}>
+              <i className='icon-close'></i>
+            </div>
+          ) : null}
+        </div>
+        {this.state.isInvalid ? <span className='error-message'>{errorMessage}</span> : ''}
+      </div>
+    );
+  }
+}
+
+LabelPassword.propTypes = {
+  required: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  maxLength: PropTypes.number,
+};
+
+export default withFormsy(LabelPassword);
+
+```
+#### Properties
+
+| 名稱 | 屬性 | 必填 | 選項 | 說明 |
+| :--- | :--- | :--- | :--- | :--- |
+| nam | String | true |  | 輸入框名稱 |
+| placeholder | String |  |  | 輸入框提示訊息 |
+| required | Boolean |  |  | 是否為必填 |
+| label | String |  |  | 欄位說明 |
+| validations | String or Object |  |  | 驗證條件 |
+| validationErrors | String or Object |  |  | 錯誤訊息 |
+| value | String |  |  | 值 |
+| onChange | Function |  |  | 輸入框值改變事件 |
+
+--- 
+
 ### LabelTextarea
 
-{% tabs %}
-{% tab title="Desktop" %}
+**Desktop**
 ![](../.gitbook/assets/image%20%2866%29.png)
-{% endtab %}
 
-{% tab title="Mobile" %}
+**Mobile**
 ![](../.gitbook/assets/image%20%28231%29.png)
-{% endtab %}
-{% endtabs %}
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```javascript
 import LabelTextarea from '../form/LabelTextarea'
 <LabelTextarea 
@@ -322,9 +435,8 @@ import LabelTextarea from '../form/LabelTextarea'
     onChange={this.storeForm} 
 />
 ```
-{% endtab %}
 
-{% tab title="Source" %}
+**Source**
 ```javascript
 import React from 'react';
 import { withFormsy } from 'formsy-react';
@@ -421,19 +533,13 @@ export default withFormsy(LabelTextarea);
 | onChange | func |  |  | 觸發事件 |
 
 ### KeywordInput
-
-{% tabs %}
-{% tab title="Desktop" %}
+**Desktop**
 ![](../.gitbook/assets/image%20%28232%29.png)
-{% endtab %}
 
-{% tab title="Mobile" %}
+**Mobile**
 ![](../.gitbook/assets/image%20%2851%29.png)
-{% endtab %}
-{% endtabs %}
 
-{% tabs %}
-{% tab title="First Tab" %}
+**Usage**
 ```javascript
 import KeywordInput from '../../KeywordInput';
 
@@ -453,9 +559,8 @@ import KeywordInput from '../../KeywordInput';
   ]}
 />
 ```
-{% endtab %}
 
-{% tab title="Second Tab" %}
+**KeywordInput.js**
 ```javascript
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
@@ -573,8 +678,6 @@ KeywordInput.propTypes = {
 export default KeywordInput;
 
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
@@ -588,18 +691,14 @@ export default KeywordInput;
 
 ### HotWord
 
-{% tabs %}
-{% tab title="Desktop" %}
+**Desktop**
 ![](../.gitbook/assets/image%20%28123%29.png)
 {% endtab %}
 
-{% tab title="Mobile" %}
+**Mobile**
 ![](../.gitbook/assets/image%20%28218%29.png)
-{% endtab %}
-{% endtabs %}
 
-{% tabs %}
-{% tab title="Usage" %}
+**Usage**
 ```javascript
 import HotWord from '../HotWord';
 
@@ -619,9 +718,8 @@ import HotWord from '../HotWord';
   ]
 }} />
 ```
-{% endtab %}
 
-{% tab title="Source" %}
+**Source**
 ```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -744,8 +842,6 @@ HotWord.propTypes = {
 export default HotWord;
 
 ```
-{% endtab %}
-{% endtabs %}
 
 #### Properties
 
