@@ -1,6 +1,46 @@
+# FETNET ESTORE
+
+## Summary
+- [FETNET ESTORE](#fetnet-estore)
+  - [Summary](#summary)
+  - [壹、專案介紹](#壹專案介紹)
+    - [一、Estore 開發簡述](#一estore-開發簡述)
+    - [二、Git 位置及使用說明](#二git-位置及使用說明)
+        - [Git 位置](#git-位置)
+        - [下載步驟](#下載步驟)
+  - [貳、React 架構說明](#貳react-架構說明)
+  - [參、SASS 樣式設定](#參sass-樣式設定)
+    - [一、瀏覽器斷點](#一瀏覽器斷點)
+    - [二、基礎定義及修改](#二基礎定義及修改)
+    - [三、修改及區塊設定方式](#三修改及區塊設定方式)
+    - [四、使用樣式工具](#四使用樣式工具)
+  - [肆、切版開發說明](#肆切版開發說明)
+    - [一、HTML 大架構說明](#一html-大架構說明)
+    - [二、常用套件及共用工具](#二常用套件及共用工具)
+        - [Material-UI](#material-ui)
+        - [PropTypes](#proptypes)
+        - [ReactSlick](#reactslick)
+        - [FormsyReact](#formsyreact)
+        - [Paginate](#paginate)
+        - [ScrollMemory](#scrollmemory)
+        - [Utils](#utils)
+  - [伍、Router 及全域設定](#伍router-及全域設定)
+    - [一、App.js](#一appjs)
+    - [二、Loader.js](#二loaderjs)
+  - [陸、Redux 使用方式](#陸redux-使用方式)
+    - [一、State](#一state)
+    - [二、Reducer](#二reducer)
+    - [三、Action/action/index.js 設定從模組呼叫 redux 的函式。](#三actionactionindexjs-設定從模組呼叫-redux-的函式)
+    - [四、Componentonent 中帶入對應的 action 與 redux 函式。](#四componentonent-中帶入對應的-action-與-redux-函式)
+  - [柒、模組與流程](#柒模組與流程)
+    - [一、基本模組ments/button.md)](#一基本模組mentsbuttonmd)
+    - [二、表單模組](#二表單模組)
+    - [三、主要共用模組](#三主要共用模組)
+    - [四、頁面流程](#四頁面流程)
+
+---
 
 ## 壹、專案介紹
-
 
 ### 一、Estore 開發簡述
 
@@ -19,8 +59,6 @@
 
 ##### 下載步驟
 
-
-
 1. Git 由遠傳的 Roger 管理，在使用前需請 Roger 加入權限
 2. Git clone 專案到本機的專案資料夾
 3. 在 terminal 輸入  `cd /fentet-estore-ui ` 進入專案資料夾
@@ -28,6 +66,7 @@
 5. 執行 ` npm run start ` 進行開發與除錯
 6. 需打包時使用 ` npm run build ` 打包開發檔案，並將 build 資料夾內的內容上傳測試環境
 
+---
 
 ## 貳、React 架構說明
 
@@ -58,8 +97,6 @@
    </td>
   </tr>
 </table>
-
-
 
 <table>
   <tr>
@@ -136,7 +173,7 @@
   </tr>
 </table>
 
-
+---
 
 ## 參、SASS 樣式設定
 
@@ -214,7 +251,6 @@ React 主要使用 Material-UI 的網格系統，參考其主要的瀏覽器尺�
 
 
 ### 二、基礎定義及修改
-
 
 <table>
   <tr>
@@ -321,8 +357,6 @@ React 主要使用 Material-UI 的網格系統，參考其主要的瀏覽器尺�
 
 在 ` sass/base ` 中有對應的樣式名稱可參考，在切版時局部改變文字顏色、間距大小。並可根據大小網需求做 sm、md、lg、xl 的設定做出大小網不同的設定，以下列舉出常用項目，詳細使用方法可直接觀看 sass 檔案。 \
 
-
-
 <table>
   <tr>
    <td colspan="3" ><strong>文字設定</strong>
@@ -419,8 +453,6 @@ React 主要使用 Material-UI 的網格系統，參考其主要的瀏覽器尺�
    </td>
   </tr>
 </table>
-
-
 
 <table>
   <tr>
@@ -596,10 +628,10 @@ React 主要使用 Material-UI 的網格系統，參考其主要的瀏覽器尺�
   </tr>
 </table>
 
+---
+
 ## 肆、切版開發說明
-
-### 一、HTML 大架構說明 
-
+### 一、HTML 大架構說明
 HTML 架構大致如下：
 ```html
 <html>
@@ -631,7 +663,6 @@ HTML 架構大致如下：
 ```
 
 ### 二、常用套件及共用工具
-
 為方便開發，使用一些文件較為齊全的 react 套件便於日後維護與擴充。
 
 
@@ -679,7 +710,6 @@ HTML 架構大致如下：
 ##### Utils
 
 共用、客製函式區。
-
 
 <table>
   <tr>
@@ -744,14 +774,11 @@ import * as Validation from '../../utils/validation';
   </tr>
 </table>
 
-
+---
 
 ## 伍、Router 及全域設定
 
-
-### 一、App.js 
-
-
+### 一、App.js
 <table>
   <tr>
    <td><strong>行數</strong>
@@ -773,11 +800,7 @@ import * as Validation from '../../utils/validation';
   </tr>
 </table>
 
-
-
-### 二、Loader.js 
-
-
+### 二、Loader.js
 <table>
   <tr>
    <td><strong>行數</strong>
@@ -854,11 +877,13 @@ import * as Validation from '../../utils/validation';
   </tr>
 </table>
 
+---
+
 ## 陸、Redux 使用方式
 Redux 的優點與基礎操作說明可參考[中文文件](https://chentsulin.github.io/redux/index.html)
 目前在 `src/App.js` 中已有預設載入 Redux，只需在 `/src/stores` 中加入對應的 action 與 state ，並引入模組中即可。
 
-### State
+### 一、State
 以購物車為例，在 `/src/stores/state.js` 新增 cartState 紀錄購物車資料。
 ```jsx
 export const cartState = {
@@ -866,7 +891,7 @@ export const cartState = {
 };
 ```
 
-### Reducer
+### 二、Reducer
 新增 `/src/stores/reducer/cart.js` 設定 cartReducer 處理購物車的新增、修改、刪除。
 ```jsx
 import { TYPES } from '../action'; // 載入 actionType
@@ -905,8 +930,7 @@ export default function cartReducer(state = cartState, action) {
 }
 ```
 
-### Action
-在 /src/stores/action/index.js 設定從模組呼叫 redux 的函式。
+### 三、Action/action/index.js 設定從模組呼叫 redux 的函式。
 ```jsx
 //設定對應的 actionType 與 reducer 同步
 export const SET_CART_DATA = 'SET_CART_DATA';
@@ -944,8 +968,7 @@ export function setCartData(cart) {
 }
 ```
 
-### Component
-在需要使用的 Component 中帶入對應的 action 與 redux 函式。
+### 四、Componentonent 中帶入對應的 action 與 redux 函式。
 ```jsx
 import { setCartData } from '../../stores/action';
 import { bindActionCreators } from 'redux';
@@ -978,11 +1001,11 @@ addToCart = () => {
 }
 ```
 
+---
+
 ## 柒、模組與流程
 
-
-### 一、基本模組
-- [Button](./elements/button.md)
+### 一、基本模組ments/button.md)
 - [Link](./elements/link.md)
 - [Item](./elements/item.md)
 - [LinkItem](./elements/linkitem.md)
@@ -1015,13 +1038,10 @@ addToCart = () => {
 **Estore 表單模組**
 - [CheckboxCards](./form/checkbox-cards.md)
 可選擇商品的牌卡列表
-
 - [CheckboxCardCarousel](./form/checkbox-card-carousel.md)
 商品選擇輪播模組，用於申辦流程
-
 - [ColorSelector](./form/color-selector.md)
 用於產品頁選擇顏色
-
 - [DatePicker](./form/date-picker.md)
 日期選擇
 - [ImageUpload](./form/image-upload.md)
